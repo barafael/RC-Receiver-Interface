@@ -80,29 +80,26 @@ Receiver::Receiver(uint8_t _throttlePin, uint8_t _aileronPin,
     delay(10);
 }
 
-void Receiver::printChannels() {
-    Serial.print(getThrottle());
-    Serial.print('\t');
-    Serial.print(getAileron());
-    Serial.print('\t');
-    Serial.print(getElevator());
-    Serial.print('\t');
-    Serial.println(getRudder());
+void Receiver::getChannels(uint16_t channels[4]) {
+    channels[THROTTLE_CHANNEL] = getThrottle();
+    channels[AILERON_CHANNEL]  = getAileron();
+    channels[ELEVATOR_CHANNEL] = getElevator();
+    channels[RUDDER_CHANNEL]   = getRudder();
 }
 
-uint32_t Receiver::getThrottle() {
+uint16_t Receiver::getThrottle() {
     return receiverIn[THROTTLE_CHANNEL];
 }
 
-uint32_t Receiver::getAileron() {
+uint16_t Receiver::getAileron() {
     return receiverIn[AILERON_CHANNEL];
 }
 
-uint32_t Receiver::getElevator() {
+uint16_t Receiver::getElevator() {
     return receiverIn[ELEVATOR_CHANNEL];
 }
 
-uint32_t Receiver::getRudder() {
+uint16_t Receiver::getRudder() {
     return receiverIn[RUDDER_CHANNEL];
 }
 

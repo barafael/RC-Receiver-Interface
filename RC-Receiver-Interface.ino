@@ -7,8 +7,14 @@ void setup() {
 }
 
 void loop() {
+    uint16_t channels[4] = { 0 };
     receiver.update();
-    receiver.printChannels();
+    receiver.getChannels(channels);
+    for (int index = 0; index < 4; index++) {
+        Serial.print(channels[index]);
+        Serial.print("\t");
+    }
+    Serial.println();
     delay(5);
 }
 

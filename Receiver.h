@@ -2,35 +2,35 @@
 #define RECEIVER_H
 
 class Receiver {
-    private:
-        uint32_t throttlePin;
-        uint32_t aileronPin;
-        uint32_t elevatorPin;
-        uint32_t rudderPin;
+private:
+    uint8_t throttlePin;
+    uint8_t aileronPin;
+    uint8_t elevatorPin;
+    uint8_t rudderPin;
 
-        volatile uint32_t receiverInShared[4] = { 0 };
+    volatile uint16_t receiverInShared[4] = { 0 };
 
-        volatile uint32_t receiverIn[4] = { 0 };
+    volatile uint16_t receiverIn[4] = { 0 };
 
-        volatile uint64_t receiverPulseStartTime[4] = { 0 };
+    volatile uint64_t receiverPulseStartTime[4] = { 0 };
 
-    public:
-        Receiver(uint8_t throttle_pin, uint8_t aileron_pin,
-                 uint8_t elevator_pin, uint8_t rudder_pin);
+public:
+    Receiver(uint8_t throttle_pin, uint8_t aileron_pin,
+             uint8_t elevator_pin, uint8_t rudder_pin);
 
-        void update();
-        bool hasSignal();
-        void printChannels();
+    void update();
+    bool hasSignal();
+    void getChannels(uint16_t channels[4]);
 
-        uint32_t getThrottle();
-        uint32_t getAileron();
-        uint32_t getElevator();
-        uint32_t getRudder();
+    uint16_t getThrottle();
+    uint16_t getAileron();
+    uint16_t getElevator();
+    uint16_t getRudder();
 
-        friend void updateThrottle();
-        friend void updateAileron();
-        friend void updateElevator();
-        friend void updateRudder();
+    friend void updateThrottle();
+    friend void updateAileron();
+    friend void updateElevator();
+    friend void updateRudder();
 };
 
 #endif // RECEIVER_H
