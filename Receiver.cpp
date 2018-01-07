@@ -8,9 +8,9 @@ static Receiver *instance = NULL;
 
 typedef enum {
     THROTTLE_CHANNEL = 0,
-    AILERON_CHANNEL  = 1,
-    ELEVATOR_CHANNEL = 2,
-    RUDDER_CHANNEL   = 3
+    ROLL_CHANNEL     = 1,
+    PITCH_CHANNEL    = 2,
+    YAW_CHANNEL      = 3
 } input_channel;
 
 /*
@@ -28,52 +28,52 @@ void updateThrottle() {
     }
 }
 
-void updateAileron() {
-    if (digitalRead(instance->aileronPin) == HIGH) {
-        instance->receiverPulseStartTime[AILERON_CHANNEL] = micros();
+void updateRoll() {
+    if (digitalRead(instance->rollPin) == HIGH) {
+        instance->receiverPulseStartTime[ROLL_CHANNEL] = micros();
     } else {
-        instance->receiverInShared[AILERON_CHANNEL] =
-            (uint16_t)(micros() - instance->receiverPulseStartTime[AILERON_CHANNEL]);
+        instance->receiverInShared[ROLL_CHANNEL] =
+            (uint16_t)(micros() - instance->receiverPulseStartTime[ROLL_CHANNEL]);
     }
 }
 
-void updateElevator() {
-    if (digitalRead(instance->elevatorPin) == HIGH) {
-        instance->receiverPulseStartTime[ELEVATOR_CHANNEL] = micros();
+void updatePitch() {
+    if (digitalRead(instance->pitchPin) == HIGH) {
+        instance->receiverPulseStartTime[PITCH_CHANNEL] = micros();
     } else {
-        instance->receiverInShared[ELEVATOR_CHANNEL] =
-            (uint16_t)(micros() - instance->receiverPulseStartTime[ELEVATOR_CHANNEL]);
+        instance->receiverInShared[PITCH_CHANNEL] =
+            (uint16_t)(micros() - instance->receiverPulseStartTime[PITCH_CHANNEL]);
     }
 }
 
-void updateRudder() {
-    if (digitalRead(instance->rudderPin) == HIGH) {
-        instance->receiverPulseStartTime[RUDDER_CHANNEL] = micros();
+void updateYaw() {
+    if (digitalRead(instance->yawPin) == HIGH) {
+        instance->receiverPulseStartTime[YAW_CHANNEL] = micros();
     } else {
-        instance->receiverInShared[RUDDER_CHANNEL] =
-            (uint16_t)(micros() - instance->receiverPulseStartTime[RUDDER_CHANNEL]);
+        instance->receiverInShared[YAW_CHANNEL] =
+            (uint16_t)(micros() - instance->receiverPulseStartTime[YAW_CHANNEL]);
     }
 }
 
-Receiver::Receiver(uint8_t _throttlePin, uint8_t _aileronPin,
-                   uint8_t _elevatorPin, uint8_t _rudderPin) {
+Receiver::Receiver(uint8_t _throttlePin, uint8_t _rollPin,
+                   uint8_t _pitchPin, uint8_t _yawPin) {
 
     throttlePin    = _throttlePin;
-    aileronPin     = _aileronPin;
-    elevatorPin    = _elevatorPin;
-    rudderPin      = _rudderPin;
+    rollPin     = _rollPin;
+    pitchPin    = _pitchPin;
+    yawPin      = _yawPin;
 
     /* The pinMode should be set to input by default, set it anyway */
     pinMode(throttlePin, INPUT);
-    pinMode(aileronPin,  INPUT);
-    pinMode(elevatorPin, INPUT);
-    pinMode(rudderPin,   INPUT);
+    pinMode(rollPin,  INPUT);
+    pinMode(pitchPin, INPUT);
+    pinMode(yawPin,   INPUT);
 
     /* On each CHANGE on an input pin, an interrupt handler is called */
     attachInterrupt(throttlePin, updateThrottle, CHANGE);
-    attachInterrupt(aileronPin,  updateAileron,  CHANGE);
-    attachInterrupt(elevatorPin, updateElevator, CHANGE);
-    attachInterrupt(rudderPin,   updateRudder,   CHANGE);
+    attachInterrupt(rollPin,  updateRoll,  CHANGE);
+    attachInterrupt(pitchPin, updatePitch, CHANGE);
+    attachInterrupt(yawPin,   updateYaw,   CHANGE);
 
     instance = this;
 
