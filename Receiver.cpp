@@ -57,7 +57,8 @@ void updateRudder() {
 
 Receiver::Receiver(uint8_t _throttlePin, uint8_t _aileronPin,
                    uint8_t _elevatorPin, uint8_t _rudderPin) {
-    throttlePin = _throttlePin;
+
+    throttlePin    = _throttlePin;
     aileronPin     = _aileronPin;
     elevatorPin    = _elevatorPin;
     rudderPin      = _rudderPin;
