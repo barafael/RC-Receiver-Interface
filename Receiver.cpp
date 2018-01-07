@@ -87,14 +87,14 @@ Receiver::Receiver(uint8_t _throttlePin, uint8_t _rollPin,
    —————————————————————————————————————————————————————————
 */
 
-void Receiver::update(uint16_t channels[4]) {
+void Receiver::update(uint16_t channels[NUM_CHANNELS]) {
     noInterrupts();
-    for (size_t index = 0; index < 4; index++) {
+    for (size_t index = 0; index < NUM_CHANNELS; index++) {
         channels[index] = receiverInShared[index];
     }
     interrupts();
 
-    for (size_t index = 0; index < 4; index++) {
+    for (size_t index = 0; index < NUM_CHANNELS; index++) {
         if (channels[index] < 1000) channels[index] = 1000;
         if (channels[index] > 2000) channels[index] = 2000;
     }
@@ -102,7 +102,7 @@ void Receiver::update(uint16_t channels[4]) {
 
 bool Receiver::hasSignal() {
     noInterrupts();
-    for (size_t index = 0; index < 4; index++) {
+    for (size_t index = 0; index < NUM_CHANNELS; index++) {
         if (receiverInShared[index] == 0) {
             interrupts();
             return false;
