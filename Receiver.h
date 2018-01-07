@@ -10,22 +10,14 @@ class Receiver {
 
         volatile uint16_t receiverInShared[4] = { 0 };
 
-        volatile uint16_t receiverIn[4] = { 0 };
-
         volatile uint64_t receiverPulseStartTime[4] = { 0 };
 
     public:
         Receiver(uint8_t throttle_pin, uint8_t aileron_pin,
-                uint8_t elevator_pin, uint8_t rudder_pin);
+                 uint8_t elevator_pin, uint8_t rudder_pin);
 
-        void update();
+        void update(uint16_t channels[4]);
         bool hasSignal();
-        void getChannels(uint16_t channels[4]);
-
-        uint16_t getThrottle();
-        uint16_t getAileron();
-        uint16_t getElevator();
-        uint16_t getRudder();
 
         friend void updateThrottle();
         friend void updateAileron();

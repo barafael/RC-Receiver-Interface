@@ -81,55 +81,34 @@ Receiver::Receiver(uint8_t _throttlePin, uint8_t _aileronPin,
     delay(10);
 }
 
-void Receiver::getChannels(uint16_t channels[4]) {
-    channels[THROTTLE_CHANNEL] = getThrottle();
-    channels[AILERON_CHANNEL]  = getAileron();
-    channels[ELEVATOR_CHANNEL] = getElevator();
-    channels[RUDDER_CHANNEL]   = getRudder();
-}
-
-uint16_t Receiver::getThrottle() {
-    return receiverIn[THROTTLE_CHANNEL];
-}
-
-uint16_t Receiver::getAileron() {
-    return receiverIn[AILERON_CHANNEL];
-}
-
-uint16_t Receiver::getElevator() {
-    return receiverIn[ELEVATOR_CHANNEL];
-}
-
-uint16_t Receiver::getRudder() {
-    return receiverIn[RUDDER_CHANNEL];
-}
-
 /*
    —————————————————————————————————————————————————————————
    ———             RECEIVER UPDATE FUNCTION              ———
    —————————————————————————————————————————————————————————
 */
 
-void Receiver::update() {
+void Receiver::update(uint16_t channels[4]) {
     noInterrupts();
     for (size_t index = 0; index < 4; index++) {
-        receiverIn[index] = receiverInShared[index];
+        channels[index] = receiverInShared[index];
     }
     interrupts();
 
     for (size_t index = 0; index < 4; index++) {
-        if (receiverIn[index] < 1000) receiverIn[index] = 1000;
-        if (receiverIn[index] > 2000) receiverIn[index] = 2000;
+        if (channels[index] < 1000) channels[index] = 1000;
+        if (channels[index] > 2000) channels[index] = 2000;
     }
 }
 
 bool Receiver::hasSignal() {
-    this->update();
+    noInterrupts();
     for (size_t index = 0; index < 4; index++) {
-        if (receiverIn[index] == 0) {
+        if (receiverInShared[index] == 0) {
+            interrupts();
             return false;
         }
     }
+    interrupts();
     return true;
 }
 
