@@ -4,7 +4,7 @@
 #include "Receiver.h"
 
 /* Access variable for ISRs */
-static Receiver *instance = NULL;
+static Receiver *instance = nullptr;
 
 typedef enum {
     THROTTLE_CHANNEL = 0,
@@ -56,30 +56,31 @@ void updateYaw() {
 }
 
 Receiver::Receiver(uint8_t _throttlePin, uint8_t _rollPin,
-                   uint8_t _pitchPin, uint8_t _yawPin) {
+                   uint8_t _pitchPin,    uint8_t _yawPin) {
 
-    throttlePin    = _throttlePin;
+    throttlePin = _throttlePin;
     rollPin     = _rollPin;
     pitchPin    = _pitchPin;
     yawPin      = _yawPin;
 
     /* The pinMode should be set to input by default, set it anyway */
     pinMode(throttlePin, INPUT);
-    pinMode(rollPin,  INPUT);
-    pinMode(pitchPin, INPUT);
-    pinMode(yawPin,   INPUT);
+    pinMode(rollPin,     INPUT);
+    pinMode(pitchPin,    INPUT);
+    pinMode(yawPin,      INPUT);
 
     /* On each CHANGE on an input pin, an interrupt handler is called */
     attachInterrupt(throttlePin, updateThrottle, CHANGE);
-    attachInterrupt(rollPin,  updateRoll,  CHANGE);
-    attachInterrupt(pitchPin, updatePitch, CHANGE);
-    attachInterrupt(yawPin,   updateYaw,   CHANGE);
+    attachInterrupt(rollPin,     updateRoll,     CHANGE);
+    attachInterrupt(pitchPin,    updatePitch,    CHANGE);
+    attachInterrupt(yawPin,      updateYaw,      CHANGE);
 
     instance = this;
 
     /* TODO Check if delay necessary for has_signal */
     delay(10);
 }
+
 
 /*
    —————————————————————————————————————————————————————————
@@ -97,6 +98,7 @@ void Receiver::update(uint16_t channels[NUM_CHANNELS]) {
     for (size_t index = 0; index < NUM_CHANNELS; index++) {
         if (channels[index] < 1000) channels[index] = 1000;
         if (channels[index] > 2000) channels[index] = 2000;
+        channels[index] -= 1000;
     }
 }
 
