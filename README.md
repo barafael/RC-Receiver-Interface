@@ -30,5 +30,5 @@ for detecting receiver signals.
 
 The example sketch ```RC-Receiver-Interface.ino``` sets up the receiver such
 that you can connect your receiver to pins 8, 9, 10, 11. Channel order is
-throttle, aileron, elevator, rudder.  Make sure your receiver outputs PPM
-signal, not CPPM or any of the more modern digital signals.
+throttle, aileron, elevator, rudder.  Make sure you choose the right signal
+type (ppm, pwm) in the code and your receiver.
