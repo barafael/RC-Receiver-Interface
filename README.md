@@ -2,9 +2,10 @@
 
 This library provides a ```Receiver``` object from which you can read the input
 from an RC receiver. There are many sketches around the internet which achieve
-the same result, but some of them use blocking functions (i.e. pulseIn()) or are
-just long C files. This library provides an object-oriented receiver interface.
-For now, only PPM signals are supported, but at least CPPM should be easy to do.
+the same result, but some of them use blocking functions (i.e. pulseIn()) or
+are just long C files. This library provides an object-oriented receiver
+interface.  As input, PWM and CPPM signals are supported. For the latter, only
+one pin is needed, but it uses the teensy-specific PulsePosition library.
 
 # Supported Devices
 
