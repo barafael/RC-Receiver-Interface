@@ -7,15 +7,15 @@
 
 class PPMReceiver : Receiver {
     private:
-        uint8_t input_pin;
-        PulsePositionInput input_ppm;
+        uint8_t inputPin;
+        PulsePositionInput inputPpm;
         int count = 0;
 
     public:
-        PPMReceiver(uint8_t _input_pin);
+        PPMReceiver(uint8_t _inputPin);
         
         const void update(channels_t channels);
-        const bool has_signal();
+        const bool hasSignal();
 };
 
 #endif // PPMRECEIVER_H

@@ -79,7 +79,7 @@ PWMReceiver::PWMReceiver(uint8_t _throttlePin, uint8_t _rollPin,
 
     instance = this;
 
-    /* TODO Check if delay necessary for has_signal */
+    /* TODO Check if delay necessary for hasSignal */
     delay(10);
 }
 
@@ -104,7 +104,7 @@ void const PWMReceiver::update(uint16_t channels[NUM_CHANNELS]) {
     }
 }
 
-bool const PWMReceiver::has_signal() {
+bool const PWMReceiver::hasSignal() {
     noInterrupts();
     for (size_t index = 0; index < NUM_CHANNELS; index++) {
         if (receiverInShared[index] == 0) {

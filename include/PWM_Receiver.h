@@ -15,11 +15,11 @@ class PWMReceiver : Receiver {
         volatile uint64_t receiverPulseStartTime[NUM_CHANNELS] = { 0 };
 
     public:
-        PWMReceiver(uint8_t throttle_pin, uint8_t roll_pin,
-                 uint8_t pitch_pin,    uint8_t yaw_pin);
+        PWMReceiver(uint8_t throttlePin, uint8_t rollPin,
+                    uint8_t pitchPin,    uint8_t yawPin);
 
         void const update(uint16_t channels[NUM_CHANNELS]);
-        bool const has_signal();
+        bool const hasSignal();
 
         friend void updateThrottle();
         friend void updateRoll();

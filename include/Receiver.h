@@ -7,7 +7,7 @@ class Receiver {
     public:
         using channels_t = uint16_t[NUM_CHANNELS];
         virtual const void update(uint16_t channels[NUM_CHANNELS]);
-        virtual const bool has_signal();
+        virtual const bool hasSignal();
 };
 
 #endif // RECEIVER_H

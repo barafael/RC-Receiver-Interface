@@ -3,10 +3,10 @@
 #include "./include/PPM_Receiver.h"
 #include "./include/PWM_Receiver.h"
 
-PWMReceiver pwm_receiver(19, 20, 21, 22);
-PPMReceiver ppm_receiver(10);
+PWMReceiver pwmReceiver(19, 20, 21, 22);
+PPMReceiver ppmReceiver(10);
 
-#define use_ppm
+#define use_pwm
 
 uint16_t channels[4] = { 0 };
 
@@ -16,7 +16,7 @@ void setup() {
 
 void loop() {
 #ifdef use_pwm
-    pwm_receiver.update(channels);
+    pwmReceiver.update(channels);
     for (int index = 0; index < 4; index++) {
         Serial.print(channels[index]);
         Serial.print("\t");
@@ -27,7 +27,7 @@ void loop() {
 
 #ifdef use_ppm
 
-    ppm_receiver.update(channels);
+    ppmReceiver.update(channels);
     for (int index = 0; index < 8; index++) {
         Serial.print(channels[index]);
         Serial.print("\t");
