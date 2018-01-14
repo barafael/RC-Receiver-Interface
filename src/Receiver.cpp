@@ -1,7 +1,7 @@
 #include "Arduino.h"
 #include "WProgram.h"
 
-#include "Receiver.h"
+#include "../include/Receiver.h"
 
 /* Access variable for ISRs */
 static Receiver *instance = nullptr;
