@@ -3,8 +3,10 @@
 
 #include "../include/Receiver.h"
 
+#include "../include/PWM_Receiver.h"
+
 /* Access variable for ISRs */
-static Receiver *instance = nullptr;
+static PWMReceiver *instance = nullptr;
 
 typedef enum {
     THROTTLE_CHANNEL = 0,
@@ -55,8 +57,8 @@ void updateYaw() {
     }
 }
 
-Receiver::Receiver(uint8_t _throttlePin, uint8_t _rollPin,
-                   uint8_t _pitchPin,    uint8_t _yawPin) {
+PWMReceiver::PWMReceiver(uint8_t _throttlePin, uint8_t _rollPin,
+                         uint8_t _pitchPin,    uint8_t _yawPin) {
 
     throttlePin = _throttlePin;
     rollPin     = _rollPin;
@@ -88,7 +90,7 @@ Receiver::Receiver(uint8_t _throttlePin, uint8_t _rollPin,
    —————————————————————————————————————————————————————————
 */
 
-void Receiver::update(uint16_t channels[NUM_CHANNELS]) {
+void const PWMReceiver::update(uint16_t channels[NUM_CHANNELS]) {
     noInterrupts();
     for (size_t index = 0; index < NUM_CHANNELS; index++) {
         channels[index] = receiverInShared[index];
@@ -102,7 +104,7 @@ void Receiver::update(uint16_t channels[NUM_CHANNELS]) {
     }
 }
 
-bool Receiver::hasSignal() {
+bool const PWMReceiver::has_signal() {
     noInterrupts();
     for (size_t index = 0; index < NUM_CHANNELS; index++) {
         if (receiverInShared[index] == 0) {

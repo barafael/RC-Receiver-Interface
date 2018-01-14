@@ -15,7 +15,7 @@ const void PPMReceiver::update(channels_t channels) {
     int num = input_ppm.available();
     if (num > 0) {
         count = count + 1;
-        for (size_t index = 0; index < PPM_NUM_CHANNELS; index++) {
+        for (size_t index = 0; index < NUM_CHANNELS; index++) {
             float val = input_ppm.read(index + 1);
             channels[index] = (uint16_t) val;
             if (channels[index] < 1000) channels[index] = 1000;

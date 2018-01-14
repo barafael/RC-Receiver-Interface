@@ -3,11 +3,9 @@
 
 #include <PulsePosition.h>
 
-static const size_t PPM_NUM_CHANNELS = 4;
+#include "Receiver.h"
 
-using channels_t = uint16_t[PPM_NUM_CHANNELS];
-
-class PPMReceiver {
+class PPMReceiver : Receiver {
     private:
         uint8_t input_pin;
         PulsePositionInput input_ppm;
