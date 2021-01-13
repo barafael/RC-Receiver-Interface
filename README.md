@@ -1,5 +1,8 @@
 # RC-Receiver-Interface - A library for reading RC receivers
 
+Disclaimer: You should probably do this with Timers and/or DMA,
+but for a quick solution this works fine...
+
 This library provides a ```Receiver``` object from which you can read the input
 from an RC receiver. There are many sketches around the internet which achieve
 the same result, but some of them use blocking functions (i.e. pulseIn()) or
